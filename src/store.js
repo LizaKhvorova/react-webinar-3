@@ -42,12 +42,13 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    const random = Math.ceil(Math.random() * 1234);
     this.setState({
       ...this.state,
       list: [...this.state.list, {
-        code: new Date().getTime(),
+        code: random,
         title: 'Новая запись',
-        highlited:0
+        highlited: 0
       }]
     });
   }
@@ -72,13 +73,13 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-            item.selected = !item.selected; 
-          } else {
-            item.selected = false;
-          }
-          if(item.selected) {
-            item.highlited += 1;
-          }
+          item.selected = !item.selected;
+        } else {
+          item.selected = false;
+        }
+        if (item.selected) {
+          item.highlited += 1;
+        }
         return item;
       })
     });

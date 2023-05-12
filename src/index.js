@@ -47,8 +47,14 @@ const store = new Store({
 const root = createRoot(document.getElementById('root'));
 
 store.subscribe(() => {
-  root.render(<App store={store}/>);
-});
+      root.render( < App store = {
+          store
+        }
+        />);
+      });
 
-// Первый рендер приложения
-root.render(<App store={store}/>);
+    // Первый рендер приложения
+    root.render( < App store = {
+        store
+      }
+      />);
