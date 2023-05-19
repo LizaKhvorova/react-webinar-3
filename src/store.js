@@ -1,14 +1,16 @@
 import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+        ...initState, 
+        cart: [],
+        isShow: false
+    };
     this.listeners = []; // Слушатели изменений состояния
   }
-
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -82,6 +84,34 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  // добавление товара в корзину
+  addItemToCart(code) {
+    const { list, cart } = this.state;
+    const listItem = list.find((item) => item.code === code);
+    const existingCartItemIndex = cart.findIndex((item) => item.code === code);
+    if (~existingCartItemIndex) {
+        cart[existingCartItemIndex].count += 1;
+    } else {
+        cart.push({...listItem, count: 1})
+    }
+
+    this.setState({ ...this.state, cart })
+    console.log(this.state);
+  }
+
+  // удаление товара из корзины 
+  removeItemFromCart(code) {
+    this.setState({
+        ...this.state,
+        cart: this.state.cart.filter(item => item.code !== code)
+      })
+  }
+
+  // Переход в корзину и закрыть корзину
+  toggleModal() {
+    this.setState({...this.state, isShow: !this.state.isShow})
   }
 }
 

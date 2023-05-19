@@ -3,3 +3,12 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+button {
+    width: 80px;
+}
+
+.Count {
+    margin-right: 20px;
+    font-size: 18px;
+}
