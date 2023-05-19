@@ -16,7 +16,7 @@ function App({store}) {
     const sum = cart.reduce((acc, item) => {
         return acc += (item.price * item.count)
     }, 0).toLocaleString("ru-RU");
-    
+
     const callbacks = {
         onAddItemToCart: useCallback((code) => {
             store.addItemToCart(code);
@@ -40,14 +40,13 @@ function App({store}) {
             <List
                 list={list}
                 onClick={callbacks.onAddItemToCart}
-                button="Добавить"
+                buttonText="Добавить"
             />
             {isShow ? 
                 (<Cart cart={cart} 
                 onRemoveItem={callbacks.onRemoveItem} 
                 onClose={callbacks.toggleModal} 
                 sum={sum}
-                button="Удалить"
             />) : null}
         </PageLayout>
     );

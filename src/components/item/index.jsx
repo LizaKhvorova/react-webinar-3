@@ -29,7 +29,7 @@ function Item(props){
         }
       <div className='Item-actions'>
         <button onClick={() => callbacks.onClick(props.item.code)}>
-          {props.button}
+          {props.buttonText}
         </button>
       </div>
     </div>

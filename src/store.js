@@ -86,7 +86,10 @@ class Store {
     })
   }
 
-  // добавление товара в корзину
+   /**
+   * Добавление товара в корзину
+   * @param code
+   */
   addItemToCart(code) {
     const { list, cart } = this.state;
     const listItem = list.find((item) => item.code === code);
@@ -98,10 +101,12 @@ class Store {
     }
 
     this.setState({ ...this.state, cart })
-    console.log(this.state);
   }
-
-  // удаление товара из корзины 
+  
+   /**
+   * Удаление товара из корзины
+   * @param code
+   */
   removeItemFromCart(code) {
     this.setState({
         ...this.state,
@@ -109,7 +114,9 @@ class Store {
       })
   }
 
-  // Переход в корзину и закрыть корзину
+  /**
+   * Переход в корзину и закрыть корзину
+   */
   toggleModal() {
     this.setState({...this.state, isShow: !this.state.isShow})
   }

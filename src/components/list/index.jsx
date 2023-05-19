@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from "../item/index.jsx";
 import './style.css';
 
-function List({list, onClick, button, count}){
+function List({list, onClick, buttonText, count}){
   return (
     <div className='List'>{
       list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onClick={onClick} button={button} count={count}/>
+          <Item item={item} onClick={onClick} buttonText={buttonText} count={count}/>
         </div>
       )}
     </div>
