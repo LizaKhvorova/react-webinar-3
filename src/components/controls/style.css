@@ -8,7 +8,13 @@ button {
     width: 80px;
 }
 
+.InCart {
+    font-size: 18px;
+    margin-right: 12px;
+}
+
 .Count {
     margin-right: 20px;
     font-size: 18px;
+    font-weight: 700;
 }

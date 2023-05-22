@@ -8,15 +8,6 @@
     border-radius: 10px;
 }
 
-.Overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-    background: rgba(0, 0, 0, 0.7);
-}
-
 .Cart-Header {
     display: flex;
     justify-content: space-between;
@@ -30,9 +21,11 @@
 .Cart-Total {
     display: flex;
     justify-content: flex-end;
-    margin-right: 120px;
-    margin-bottom: 90px;
-    margin-top: 20px;
     font-weight: 700;
     font-size: 18px;
+    padding: 20px 90px 89px 670px;
+}
+
+.Total-Sum {
+    margin-left: 50px;
 }
