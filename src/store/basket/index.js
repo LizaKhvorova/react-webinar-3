@@ -7,7 +7,7 @@ class Basket extends StoreModule {
       list: [],
       sum: 0,
       amount: 0
-    }
+    };
   }
 
   /**
