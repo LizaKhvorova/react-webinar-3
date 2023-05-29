@@ -33,18 +33,3 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
-
-/**
- * Создание диапозона страниц
- */
-export function scope(from, to, step = 1) {
-  let i = from;
-  const range = [];
-
-  while (i <= to) {
-    range.push(i);
-    i += step;
-  }
-
-  return range;
-}

@@ -1,5 +1,5 @@
 class Api {
-    static async getCatalog(skip = 0, limit = 20) {
+    static async getCatalog(skip = 0, limit = 10) {
       const url = `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(title, price),count`;
       const res = await fetch(url);
       console.log(res);

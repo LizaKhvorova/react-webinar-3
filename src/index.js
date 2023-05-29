@@ -2,6 +2,7 @@ import {createRoot} from 'react-dom/client';
 import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
+import Description from "./components/description";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -13,8 +14,12 @@ const root = createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
     {
-      path: "/",
-      element: <div></div>,
+        path: "/",
+        element: <App />,
+      },
+    {
+      path: "/" + ":id",
+      element: <Description />,
     },
   ]);
 
@@ -22,6 +27,5 @@ const router = createBrowserRouter([
 root.render(
   <StoreContext.Provider value={store}>
     <RouterProvider router={router} />
-    <App/>
   </StoreContext.Provider>
 );

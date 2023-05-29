@@ -17,23 +17,20 @@ function Main() {
 
     const store = useStore();
     const [currentPage, setCurrentPage] = useState(1);
-    const [limit] = useState(10);
-    const lastItemIndex = currentPage * limit;
-    const firstItemIndex = lastItemIndex - limit;
+
   
     useEffect(() => {
-        store.actions.catalog.load(currentPage, limit);
-    }, []);
+        store.actions.catalog.load(currentPage);
+    }, [currentPage]);
 
     const select = useSelector(state => ({
         list: state.catalog.list,
         amount: state.basket.amount,
-        sum: state.basket.sum
+        sum: state.basket.sum,
+        pageCount: state.catalog.pageCount
     }));
 
-    const currentItem = select.list.slice(firstItemIndex, lastItemIndex);
-
-    const paginate = pageNumber => setCurrentPage(pageNumber);
+    const handlePaginate = pageNumber => setCurrentPage(pageNumber);
 
     const callbacks = {
         // Добавление в корзину
@@ -55,8 +52,8 @@ function Main() {
         amount={select.amount}
         sum={select.sum}
         /> 
-        <List list={currentItem} renderItem={renders.item}/> 
-        <Pagination totalItems={select.list.length} limit={limit} paginate={paginate}/>
+        <List list={select.list} renderItem={renders.item}/> 
+        {select.pageCount > 0 ? <Pagination pageCount={select.pageCount} handlePaginate={handlePaginate} currentPage={currentPage}/> : null}
     </PageLayout>
     );
 }

@@ -13,27 +13,23 @@ class Catalog extends StoreModule {
 
     initState() {
         return {
-            list: []
+            list: [],
+            count: 0,
+            pageCount: 0
         };
     }
 
-    async load(currentPage, limit) {
+    async load(currentPage, limit = 10) {
         const skip = limit * currentPage;
-        const json = await Api.getCatalog(skip, limit);
-        const pageAmount = Math.ceil(json.result.count / limit);
+        const response = await Api.getCatalog(skip, limit);
+        const {count, items} = response.result
+        const pageCount = Math.ceil(count / limit);
         this.setState({
         ...this.getState(),
-            list: json.result.items,
-            count: json.result.count,
-            limit,
-            pageAmount
+            list: items,
+            count,
+            pageCount
         }, 'Загружены товары из АПИ');
-    }
-
-    async describe(id) {
-        const response = await fetch("api/v1/articles/646b6e1fe1626c0bd8518064?fields=*,madeIn(title,code),category(title)");
-        const json = await response.json();
-        
     }
 }
 
