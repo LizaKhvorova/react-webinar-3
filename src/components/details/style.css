@@ -1,4 +1,4 @@
-.Description {
+.Details {
     display: flex;
     flex-direction: column;
     margin: 40px 40px 23px 40px;
@@ -6,7 +6,7 @@
     gap: 20px;
 }
 
-.Description-title {
+.Details-title {
     font-family: 'Arial';
     font-style: normal;
     font-weight: 700;
@@ -14,11 +14,11 @@
     color: #000000;
 }
 
-.Description-price {
+.Details-price {
     font-size: 24px;
     font-weight: 700;
 }
 
-.Description-btn {
+.Details-btn {
     width: 76px;
 }

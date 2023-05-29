@@ -1,7 +1,9 @@
 import React, {useMemo} from "react";
 import "./style.css";
 import {cn as bem} from "@bem-react/classname";
-import Dots from "./Dots"
+import Dots from "./Dots";
+import PropTypes, {number} from 'prop-types';
+
 
 function Pagination({
     pageCount = 0,
@@ -12,7 +14,8 @@ function Pagination({
 }) {
     const cn = bem('Pagination');
     const pageNumbers = useMemo(
-        () => new Array(pageCount).fill(null).map((_, index) => ({ id: index + 1, isDot: false })),
+        () => new Array(pageCount)
+            .fill(null).map((_, index) => ({ id: index + 1, isDot: false })),
         [pageCount]
     );
 
@@ -25,7 +28,7 @@ function Pagination({
                 { id: 'dot-1', isDot: true },
                 lastPage
             ];
-            return items
+            return items;
         } else if (currentPage + siblingCount >= pageNumbers.length) {
             const items = [
                 firstPage,
@@ -41,9 +44,9 @@ function Pagination({
                 { id: 'dot-2', isDot: true },
                 lastPage
             ];
-            return items
+            return items;
         }
-    }
+    };
 
     return (
         <div className={cn()}>
@@ -60,9 +63,17 @@ function Pagination({
                                 )
                             }
                         </>
-                    ))}
+                ))}
         </div>
     )
+}
+
+Pagination.propTypes = {
+    pageCount: number,
+    limit: number,
+    handlePaginate: PropTypes.func,
+    currentPage: number,
+    siblingCount: number
 }
 
 export default Pagination;

@@ -2,7 +2,7 @@ import {createRoot} from 'react-dom/client';
 import App from './app';
 import Store from "./store";
 import {StoreContext} from "./store/context";
-import Description from "./components/description";
+import Description from "./app/description";
 import {
     createBrowserRouter,
     RouterProvider,
@@ -15,11 +15,11 @@ const root = createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
-      },
+        element: <App />
+    },
     {
       path: "/" + ":id",
-      element: <Description />,
+      element: <Description />
     },
   ]);
 

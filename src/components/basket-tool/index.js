@@ -8,7 +8,7 @@ function BasketTool({sum, amount, onOpen}) {
   const cn = bem('BasketTool');
   return (
     <div className={cn()}>
-        <div>
+        <div className={cn("title")}>
             <a href="/">Главная</a>
         </div>
         <div>

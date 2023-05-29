@@ -41,20 +41,24 @@ function Main() {
 
     const renders = {
         item: useCallback((item) => {
-            return <Item item={item} onAdd={callbacks.addToBasket}/>;
+            return <Item item={item} onAdd={callbacks.addToBasket}/>
         }, [callbacks.addToBasket]),
     };
 
     return ( 
-    <PageLayout>
-        <Head title='Магазин' / >
-        <BasketTool onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        /> 
-        <List list={select.list} renderItem={renders.item}/> 
-        {select.pageCount > 0 ? <Pagination pageCount={select.pageCount} handlePaginate={handlePaginate} currentPage={currentPage}/> : null}
-    </PageLayout>
+        <PageLayout>
+            <Head title='Магазин' / >
+            <BasketTool onOpen={callbacks.openModalBasket}
+                amount={select.amount}
+                sum={select.sum}
+            /> 
+            <List list={select.list} renderItem={renders.item}/> 
+            {select.pageCount > 0 ? 
+                <Pagination 
+                    pageCount={select.pageCount} 
+                    handlePaginate={handlePaginate} 
+                    currentPage={currentPage}/> : null}
+        </PageLayout>
     );
 }
 
