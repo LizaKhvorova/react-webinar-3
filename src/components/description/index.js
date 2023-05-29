@@ -9,7 +9,6 @@ import {cn as bem} from '@bem-react/classname';
 import "./style.css";
 import Basket from "../../app/basket";
 
-
 function Description() {
     const store = useStore();
     const cn = bem('Description');
