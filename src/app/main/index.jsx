@@ -20,7 +20,7 @@ function Main() {
 
   
     useEffect(() => {
-        store.actions.catalog.load(currentPage);
+        store.actions.catalog.load(currentPage - 1);
     }, [currentPage]);
 
     const select = useSelector(state => ({
@@ -41,7 +41,7 @@ function Main() {
 
     const renders = {
         item: useCallback((item) => {
-            return <Item item={item} onAdd={callbacks.addToBasket}/>
+            return <Item item={item} onAdd={callbacks.addToBasket} navigatePath={`/article/${item._id}`} />
         }, [callbacks.addToBasket]),
     };
 

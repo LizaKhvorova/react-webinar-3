@@ -12,11 +12,11 @@ function Item(props){
 
   const callbacks = {
     onAdd: (e) => props.onAdd(props.item._id)
-  }
+  };
 
   const handleNavigateToDescription = () => {
-    navigate(`/${props.item._id}`);
-  }
+    navigate(props.navigatePath);
+  };
 
   return (
     <div className={cn()}>
@@ -39,6 +39,7 @@ Item.propTypes = {
     price: PropTypes.number
   }).isRequired,
   onAdd: PropTypes.func,
+  navigatePath: PropTypes.string
 };
 
 Item.defaultProps = {

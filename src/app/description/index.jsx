@@ -11,15 +11,16 @@ function Description() {
     const store = useStore();
     const activeModal = useSelector(state => state.modals.name);
 
-    useEffect(() => {
-        store.actions.description.load(location.pathname);
-    }, []);
-
     const select = useSelector(state => ({
-            item: state.description,
-            amount: state.basket.amount,
-            sum: state.basket.sum,
+        item: state.description,
+        amount: state.basket.amount,
+        sum: state.basket.sum,
     }));
+
+    useEffect(() => {
+        const id = location.pathname.split("/");
+        store.actions.description.load(id[id.length -1]);
+    }, [location.pathname]);
 
     const callbacks = {
         // Добавление в корзину

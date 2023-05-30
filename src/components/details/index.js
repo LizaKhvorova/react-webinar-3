@@ -4,6 +4,8 @@ import "./style.css";
 import PropTypes, { string } from 'prop-types';
 
 function Details({item, addToBasket}) {
+        const id = location.pathname.split("/");
+
     const cn = bem('Details');
     return(
         <div className={cn()}>
@@ -14,7 +16,7 @@ function Details({item, addToBasket}) {
             <div className={cn("price")}>{`Цена: ${item.price.toLocaleString("ru-RU")} ₽ `}</div>
             <button
                 className={cn("btn")}
-                onClick={() => addToBasket(location.pathname.slice(1, location.pathname.length))}
+                onClick={() => addToBasket(id[id.length -1])}
             >Добавить</button>
         </div>
     )

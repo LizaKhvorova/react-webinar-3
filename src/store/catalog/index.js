@@ -22,7 +22,7 @@ class Catalog extends StoreModule {
     async load(currentPage, limit = 10) {
         const skip = limit * currentPage;
         const response = await Api.getCatalog(skip, limit);
-        const {count, items} = response.result
+        const {count, items} = response.result;
         const pageCount = Math.ceil(count / limit);
         this.setState({
         ...this.getState(),
