@@ -1,0 +1,9 @@
+.LogButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.LogButton-button {
+    margin: 10px 20px;
+}

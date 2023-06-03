@@ -8,6 +8,7 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import LogButton from "../../components/LogButton";
 
 function Main() {
 
@@ -22,6 +23,7 @@ function Main() {
 
   return (
     <PageLayout>
+        <LogButton title={t("entrance")}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

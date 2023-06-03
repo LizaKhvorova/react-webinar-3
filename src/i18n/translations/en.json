@@ -1,6 +1,11 @@
 {
   "title": "Shop",
   "menu.main": "Main",
+  "entrance": "Login",
+  "exit": "Logout",
+  "label.login": "Login",
+  "label.password": "Password",
+  "button.entrance": "Sign in",
   "basket.title": "Cart",
   "basket.open": "Open",
   "basket.close": "Close",

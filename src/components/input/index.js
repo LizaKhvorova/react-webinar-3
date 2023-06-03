@@ -26,6 +26,11 @@ function Input(props) {
 
   const cn = bem('Input');
   return (
+    <>
+    {
+    props.label? 
+        <div className={cn("label")}>{props.label}</div> : null
+    }
     <input
       className={cn({theme: props.theme})}
       value={value}
@@ -33,6 +38,8 @@ function Input(props) {
       placeholder={props.placeholder}
       onChange={onChange}
     />
+    </>
+    
   )
 }
 
