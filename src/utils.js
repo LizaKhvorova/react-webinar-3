@@ -36,20 +36,46 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
 }
 
 export function makeCategoryList(arr) {
-    const res = {};
-    // const children = {};
-    const child = arr.filter(item => item.parent);
-
-
-    arr.forEach(item => {
-        if(item.parent === null) {
-
-            res[item.title] = [];
-
-        } 
-    });
-    console.log(res);
+    const mainArr = [...arr];
+    console.log(mainArr);
+    for(let i = 0; i < mainArr.length; i++) {
+        if(mainArr[i].parent?._id) {
+            for(let j = 0; j < mainArr.length; j++) {
+                if(mainArr[i].parent._id === mainArr[j]?._id) {
+                    if(mainArr[j].children) {
+                        mainArr[j].children.push(mainArr[i]);
+                    } else {
+                        mainArr[j].children = [mainArr[i]];
+                    }
+                } else {
+                    if(mainArr[j]?.children) {
+                        makeCategoryList(mainArr[j].children);
+                    }
+                }
+            }
+        }
+    }
+    return mainArr;
 }
+
+export function displayCategories(arr) {
+    if(!arr?.length) return [];
+
+    const sortedArr = makeCategoryList(arr).filter(item => !item.parent?._id);
+    let scheme = [{title: "Все", value: ""}];
+
+    function categoryScheme(arr, count = 0) {
+        for(let i = 0; i < arr.length; i++) {
+            scheme.push({title: "–".repeat(count) + " " + arr[i].title, value: arr[i]._id});
+            if(arr[i]?.children) {
+                let countNew = count + 1;
+                categoryScheme(arr[i].children, countNew);
+            }
+        }
+    }
+    categoryScheme(sortedArr);
+    return scheme;
+} 
 
 export function setLocalStorageItem(key, value) {
     localStorage.setItem(key, value);

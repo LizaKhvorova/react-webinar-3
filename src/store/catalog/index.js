@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-
+import { displayCategories } from "../../utils";
 /**
  * Состояние каталога - параметры фильтра исписок товара
  */
@@ -118,8 +118,7 @@ class CatalogState extends StoreModule {
         const json = await response.json();
         this.setState({
             ...this.getState(),
-            categoryItems: json.result.items,
-            waiting: false
+            categoryItems: displayCategories(json.result.items)
         }, 'Загружы категории из АПИ');
         console.log(json);
     }

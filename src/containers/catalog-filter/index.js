@@ -9,7 +9,7 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import {makeCategoryList} from "../../utils";
+import {displayCategories} from "../../utils";
 
 function CatalogFilter() {
 
@@ -35,16 +35,8 @@ function CatalogFilter() {
         // Сброс
         onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
         // Категории
-        onChangeCategory: useCallback(category => store.actions.catalog.setParams({category, page: 1}), [store])
+        onChangeCategory: useCallback(category => store.actions.catalog.setParams({category}), [store])
     };
-
-    const categories = [{_id: "all", title: "Все"}];
-
-    makeCategoryList(select.categoryItems);
-    const getCategories = (arr) => {
-        
-    }
-
     const options = {
         sort: useMemo(() => ([{
                 value: 'order',
@@ -63,8 +55,9 @@ function CatalogFilter() {
                 title: 'Древние'
             },
         ]), []),
-        category: select.categoryItems
-    }; 
+        category: useMemo(() => select.categoryItems, [select.categoryItems])
+    };
+    console.log(select.categoryItems);
 
     const {
         t
