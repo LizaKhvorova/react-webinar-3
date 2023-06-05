@@ -14,6 +14,9 @@
   "basket.total": "Итого",
   "basket.unit": "шт",
   "basket.delete": "Удалить",
+  "profile.title": "Профиль",
+  "user.name": "Имя: ",
+  "user.phone": "Телефон: ",
   "article.add": "Добавить",
   "filter.reset": "Сбросить",
   "basket.articles": {

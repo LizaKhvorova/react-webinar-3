@@ -14,6 +14,9 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
+  "profile.title": "Profile",
+  "user.name": "Name:",
+  "user.phone": "Phone number:",
   "article.add": "Add",
   "filter.reset": "Reset",
   "basket.articles": {

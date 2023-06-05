@@ -50,6 +50,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
+  label: PropTypes.string
 }
 
 Input.defaultProps = {
