@@ -97,16 +97,24 @@ class CatalogState extends StoreModule {
             'search[query]': params.query
         };
 
-        // if (params.category !== 'all') {
-        //     apiParams['search[category]'] = params.category;
-        // }
+        // const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+        if (params.category) {
+            apiParams['search[category]'] = params.category;
+        }
 
-        const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+        let fetchedCategories;
+        if (!this.getState().categoryItems.length) {
+            fetchedCategories = await this.getCategories();
+        }
+    
+        const response = await  fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
         const json = await response.json();
         this.setState({
             ...this.getState(),
             list: json.result.items,
             count: json.result.count,
+            categoryItems: fetchedCategories ? 
+            fetchedCategories.items : this.getState().categoryItems,
             waiting: false
         }, 'Загружен список товаров из АПИ');
 

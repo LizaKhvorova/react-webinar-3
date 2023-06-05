@@ -9,7 +9,6 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import {displayCategories} from "../../utils";
 
 function CatalogFilter() {
 
@@ -19,9 +18,9 @@ function CatalogFilter() {
         sort: state.catalog.params.sort,
         query: state.catalog.params.query,
         category: state.catalog.params.category,
-        categoryItems: state.catalog.categoryItems
+        categoryItems: state.catalog.categoryItems,
     }));
-
+    console.log(select.category);
     const callbacks = {
         // Сортировка
         onSort: useCallback(sort => store.actions.catalog.setParams({
@@ -37,6 +36,7 @@ function CatalogFilter() {
         // Категории
         onChangeCategory: useCallback(category => store.actions.catalog.setParams({category}), [store])
     };
+    
     const options = {
         sort: useMemo(() => ([{
                 value: 'order',
@@ -68,9 +68,9 @@ function CatalogFilter() {
         <Select options={options.category} value={select.category} onChange={callbacks.onChangeCategory}/>
         <Select options = {options.sort} value = {select.sort} onChange = {callbacks.onSort} /> 
         <Input value = {select.query}
-        onChange = {callbacks.onSearch}
-        placeholder = {'Поиск'}
-        delay = {1000}
+            onChange = {callbacks.onSearch}
+            placeholder = {'Поиск'}
+            delay = {1000}
         /> 
         <button onClick = {callbacks.onReset}> 
             {t('filter.reset')} 
