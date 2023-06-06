@@ -18,9 +18,8 @@ function CatalogFilter() {
         sort: state.catalog.params.sort,
         query: state.catalog.params.query,
         category: state.catalog.params.category,
-        categoryItems: state.catalog.categoryItems,
+        categoryItems: state.categories.categoryItems,
     }));
-    console.log(select.category);
     const callbacks = {
         // Сортировка
         onSort: useCallback(sort => store.actions.catalog.setParams({
@@ -57,7 +56,6 @@ function CatalogFilter() {
         ]), []),
         category: useMemo(() => select.categoryItems, [select.categoryItems])
     };
-    console.log(select.categoryItems);
 
     const {
         t

@@ -66,7 +66,7 @@ export function displayCategories(arr) {
 
     function categoryScheme(arr, count = 0) {
         for(let i = 0; i < arr.length; i++) {
-            scheme.push({title: "–".repeat(count) + " " + arr[i].title, value: arr[i]._id});
+            scheme.push({title: "-".repeat(count) + "  " + arr[i].title, value: arr[i]._id});
             if(arr[i]?.children) {
                 let countNew = count + 1;
                 categoryScheme(arr[i].children, countNew);

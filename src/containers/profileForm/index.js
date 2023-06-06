@@ -1,4 +1,5 @@
 import SideLayout from "../../components/side-layout";
+import { useNavigate } from "react-router-dom";
 import {cn as bem} from '@bem-react/classname';
 import "./style.css";
 import { getLocalStorageItem } from "../../utils";
@@ -11,21 +12,22 @@ import useTranslate from "../../hooks/use-translate";
 function ProfileForm () {
     const cn = bem('ProfileForm'); 
     const {t} = useTranslate();
+    const navigate = useNavigate();
 
     const store = useStore();
     useInit(() => {
         const token = getLocalStorageItem("token");
             if(token) {
-                store.actions.user.getUserData(token);
+                store.actions.profile.getUserData(token);
             } else {
                 navigate("/login");
             }
         }, []);
     
     const select = useSelector(state => ({
-        username: state.user.username, 
-        phone: state.user.phone,
-        email: state.user.email
+        username: state.profile.username, 
+        phone: state.profile.phone,
+        email: state.profile.email
     }), []);
 
     return (

@@ -18,7 +18,7 @@ function Profile () {
     const handleExit = () => {
         removeLocalStorage("token");
         removeLocalStorage("name");
-        store.actions.user.resetState();
+        store.actions.profile.resetState();
         navigate("/login");
     };
       return(
