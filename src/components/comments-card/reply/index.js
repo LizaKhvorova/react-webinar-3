@@ -1,19 +1,62 @@
+import { useState } from 'react';
 import {cn as bem} from '@bem-react/classname';
-import './style.css';
+import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
+import './style.css';
 
-function Reply({user = "User 1"}) {
+function Reply({user = "User 1", exists, id, postAnswer, setReply}) {
     const cn = bem("Reply");
+    const navigate = useNavigate();
+    const [text, setText] = useState();
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setText(value);
+    };
+
+    const handlePostAnswer = () => {
+        postAnswer(id, text, "comment");
+        setText("");
+    }
+
     return (
         <div className={cn()}>
-            <div className={cn("title")}>Новый ответ</div>
-            <textarea className={cn("textarea")} placeholder={`Мой ответ для ${user}`}></textarea>
-            <div className={cn("container")}>
-                <button className={cn("button")}>Отправить</button>
-                <button className={cn("button-cancel")}>Отмена</button>
+            {exists? 
+            <>
+                <div className={cn("title")}>Новый ответ</div>
+                <textarea className={cn("textarea")} placeholder={`Мой ответ для ${user}`} onChange={handleChange}></textarea>
+                <div className={cn("container")}>
+                    <button className={cn("button")} onClick={handlePostAnswer}>Отправить</button>
+                    <button className={cn("button-cancel")} onClick={() => setReply("")}>Отмена</button>
+                </div>
+            </>
+            : 
+            <div>
+                <div className={cn("entrance")}>
+                    <div className={cn("enter")} onClick={() => navigate("/login")}>Войдите</div> 
+                    <div>
+                        , чтобы иметь возможность комментировать.
+                    </div>
+                    <div className={cn("cancel")} onClick={() => setReply("")}>Отмена</div>
+                </div> 
             </div>
+            } 
         </div>    
     )
 }
+
+    Reply.propTypes = {
+        user: PropTypes.string,
+        exists: PropTypes.bool,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        postAnswer: PropTypes.func,
+        setReply:PropTypes.func
+    };
+  
+    Reply.defaultProps = {
+        exists: false,
+        postAnswer: () => {},
+        setReply: () => {}
+  }
 
 export default Reply;

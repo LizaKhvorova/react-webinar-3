@@ -1,6 +1,8 @@
 .Reply {
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .Reply-title {
@@ -9,7 +11,6 @@
     font-weight: 700;
     font-size: 12px;
     margin-bottom: 10px;
-    margin-top: 30px;
 }
 
 .Reply-textarea {
@@ -64,4 +65,27 @@
     font-size: 13px;
     margin-top: 13px;
 
+}
+
+.Reply-entrance {
+    display: flex;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.Reply-enter {
+    color: #0087E9;
+    text-decoration-line: underline;
+}
+
+.Reply-cancel {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    color: #666666;
+    text-decoration: underline;
+    margin-left: 5px
 }

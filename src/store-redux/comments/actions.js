@@ -8,13 +8,13 @@ export default {
       return async (dispatch, getState, services) => {
         // Сброс текущего товара и установка признака ожидания загрузки
         dispatch({type: 'comments/load-start'});
-  
         try {
           const res = await services.api.request({
             url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count`
           });
           // Товар загружен успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result.items}});
+
           console.log(res);
         } catch (e) {
           //Ошибка загрузки
@@ -26,8 +26,9 @@ export default {
     postComment: (_id, text, parent) => {
         return async (dispatch, getState, services) => {
             const obj = {
-                parent,
-                text
+                _id,
+                text,
+                parent
             }
             try {
                 dispatch({type: 'comments/post-start'});
@@ -42,6 +43,6 @@ export default {
                 dispatch({type: 'comments/post-error'});
             }
         }
-    }
+    },
   }
   

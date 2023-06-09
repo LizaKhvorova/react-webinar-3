@@ -1,7 +1,6 @@
 import {memo, useCallback, useEffect, useMemo} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
@@ -15,7 +14,7 @@ import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
 import commentsActions from "../../store-redux/comments/actions";
-import CommentsCard from '../../components/comments-card';
+import Comments from '../../containers/comments';
 
 function Article() {
   const store = useStore();
@@ -28,10 +27,6 @@ function Article() {
   useEffect(() => {
     dispatch(commentsActions.load(params.id))
     }, [])
-    const selectStore = useSelector(state => ({
-        exists: state.session.exists,
-        user: state.session.user
-    }), []);
 
     const select = useSelectorRedux(state => ({
         article: state.article.data,
@@ -55,7 +50,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
-      <CommentsCard commentCount={select.count} exists={selectStore.exists} data={select.data}/>
+      <Comments />
     </PageLayout>
   );
 }
