@@ -1,9 +1,3 @@
-/**
- * Форматирование разрядов числа
- * @param value {Number}
- * @param options {Object}
- * @returns {String}
- */
 
 export default function dateFormat(value, locale = 'ru-RU') {
     let arr = {
