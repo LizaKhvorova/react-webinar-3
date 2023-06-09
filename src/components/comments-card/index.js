@@ -7,18 +7,30 @@ import Comment from './comment';
 import NewComment from "./newComment";
 import Reply from './reply';
 
-function CommentsCard({commentCount = 0, token = true}) {
+function CommentsCard({commentCount = 0, exists = true, data}) {
     const navigate = useNavigate();
     const cn = bem("CommentsCard");
     const {t} = useTranslate();
 
+   console.log(data);
     return (
         <div className={cn()} >
             <div className={cn("title")}>{`${t("comments.title")} (${commentCount})`}</div> 
-            <Comment />
-            <Reply />
-            {token? 
-                <NewComment />
+            {data.map(item => (
+                        <div key={item._id}>
+                    <Comment 
+                        name={item.author.profile.name}
+                        date={item.dateCreate}
+                        text={item.text}
+                    />
+                </div> 
+
+            ))}
+            {exists? 
+            <div>
+                <Reply />
+                <NewComment />  
+            </div>
             :
             <div>
                 <div className={cn("entrance")}>

@@ -1,8 +1,7 @@
 // Начальное состояние
 const initialState = {
   data: {},
-  waiting: false, // признак ожидания загрузки
-  commentCount: 0
+  waiting: false // признак ожидания загрузки
 }
 
 // Обработчик действий
