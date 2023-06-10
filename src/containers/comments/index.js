@@ -8,7 +8,8 @@ import CommentsCard from '../../components/comments-card';
 import NewComment from '../../components/comments-card/newComment';
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import Comment from "../../components/comments-card/comment"
+import Comment from "../../components/comments-card/comment";
+import EnterToComment from "../../components/comments-card/enterToComment";
 
 function Comments() {
     const dispatch = useDispatch();
@@ -70,7 +71,7 @@ function Comments() {
         {selectStore.exists ?
             <NewComment /> 
             :  
-          null
+            <EnterToComment/>
             }
         </>
     )
