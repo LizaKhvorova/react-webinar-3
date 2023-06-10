@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import dateFormat from "../../../utils/date-format";
 import Reply from '../reply';
 
-function Comment({comment, exists, postComment, level}) {
+function Comment({comment, exists, level, postAnswer}) {
     const cn = bem("Comment");
     const [reply, setReply] = useState("");
     const handleReply = () => {
         setReply(comment._id);
     }
-    console.log(comment)
     return(
        <div className={cn()} style={{paddingLeft: `${level * 30}px`}}>
         <div className={cn("container")}>
@@ -21,9 +20,10 @@ function Comment({comment, exists, postComment, level}) {
         <div className={cn("text")}>{comment.text}</div>
         <div className={cn("reply")} onClick={handleReply}>Ответить</div>
         {reply? <Reply 
+            user={comment.authorName}
             exists={exists}
             id={comment._id}
-            postAnswer={postComment}
+            postAnswer={postAnswer}
             setReply={setReply}
         />: null}
        </div>     
@@ -34,12 +34,12 @@ Comment.propTypes = {
     comment: PropTypes.object,
     exists: PropTypes.bool,
     level: PropTypes.number,
-    postComment: PropTypes.func,
+    postAnswer: PropTypes.func,
 };
 
 Comment.defaultProps = {
     exists: false,
-    postComment: () => {},
+    postAnswer: () => {},
 }
 
 

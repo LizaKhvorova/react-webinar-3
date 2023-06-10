@@ -14,8 +14,6 @@ export default {
           });
           // Товар загружен успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result.items}});
-
-          console.log(res);
         } catch (e) {
           //Ошибка загрузки
           dispatch({type: 'comments/load-error'});
@@ -23,21 +21,40 @@ export default {
       }
     },
 
-    postComment: (_id, text, parent) => {
+    postComment: (text, parentId, type, callback) => {
         return async (dispatch, getState, services) => {
-            const obj = {
-                _id,
-                text,
-                parent
-            }
             try {
                 dispatch({type: 'comments/post-start'});
-                const res = await services.api.request({
+                await services.api.request({
                     url: "/api/v1/comments",
                     method: "POST",
-                    body: JSON.stringify(obj)
+                    body: JSON.stringify({
+                        text, 
+                        parent: {_id: parentId, _type: type}
+                    })
                 })
                 dispatch({type: 'comments/post-success'})
+                await callback(parentId);
+            }
+            catch(e) {
+                dispatch({type: 'comments/post-error'});
+            }
+        }
+    },
+    postAnswer: (text, parentId, type, callback) => {
+        return async (dispatch, getState, services) => {
+            try {
+                dispatch({type: 'comments/post-start'});
+                await services.api.request({
+                    url: "/api/v1/comments",
+                    method: "POST",
+                    body: JSON.stringify({
+                        text, 
+                        parent: {_id: parentId, _type: type}
+                    })
+                })
+                // dispatch({type: 'comments/post-reply'});
+                await callback();
             }
             catch(e) {
                 dispatch({type: 'comments/post-error'});

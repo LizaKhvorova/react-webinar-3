@@ -1,5 +1,5 @@
 import {memo, useCallback, useMemo} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
@@ -13,8 +13,7 @@ import EnterToComment from "../../components/comments-card/enterToComment";
 
 function Comments() {
     const dispatch = useDispatch();
-    const params = useParams();
-    const navigate = useNavigate();
+    const {id} = useParams();
 
     const selectStore = useSelector(state => ({
         exists: state.session.exists,
@@ -27,8 +26,8 @@ function Comments() {
     }));
 
     useInit(() => {
-        dispatch(commentsActions.load(params.id))
-    }, [params.id, selectRedux.newComment])
+        dispatch(commentsActions.load(id))
+    }, [id])
 
     const comments = useMemo(() => {
         if(selectRedux.data) {
@@ -49,10 +48,13 @@ function Comments() {
     }
         return null;
     }, [selectRedux.data])
-
     const callbacks = {
-        onLogin: useCallback(() => navigate("/login"), [location.pathname]),
-        postComment: useCallback((text, id, type) => dispatch(commentsActions.postComment(text, id, type)), []),
+        postComment: useCallback((text, parentId, type) => {
+            dispatch(commentsActions.postComment(text, parentId, type, (parentId) => dispatch(commentsActions.load(parentId))));
+        }),
+        postAnswer: useCallback((text, parentId, type) => {
+            dispatch(commentsActions.postComment(text, parentId, type, () => dispatch(commentsActions.load(id))));
+        })
     }
 
     const renders = {
@@ -60,8 +62,8 @@ function Comments() {
           <Comment 
             comment={item}
             exists={selectStore.exists}
-            postComment={callbacks.postComment}
             level={item.level}
+            postAnswer={callbacks.postAnswer}
           />
         ), [comments]),
       };
@@ -69,7 +71,7 @@ function Comments() {
         <>
           <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count}/>
         {selectStore.exists ?
-            <NewComment /> 
+            <NewComment postComment={callbacks.postComment}/> 
             :  
             <EnterToComment/>
             }

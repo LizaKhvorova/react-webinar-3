@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Reply({user = "User 1", exists, id, postAnswer, setReply}) {
+function Reply({user, exists, id, postAnswer, setReply}) {
     const cn = bem("Reply");
     const navigate = useNavigate();
-    const [text, setText] = useState();
+    const [text, setText] = useState("");
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -15,8 +15,9 @@ function Reply({user = "User 1", exists, id, postAnswer, setReply}) {
     };
 
     const handlePostAnswer = () => {
-        postAnswer(id, text, "comment");
+        postAnswer(text, id, "comment");
         setText("");
+        setReply("")
     }
 
     return (
@@ -24,7 +25,7 @@ function Reply({user = "User 1", exists, id, postAnswer, setReply}) {
             {exists? 
             <>
                 <div className={cn("title")}>Новый ответ</div>
-                <textarea className={cn("textarea")} placeholder={`Мой ответ для ${user}`} onChange={handleChange}></textarea>
+                <textarea className={cn("textarea")} placeholder={`Мой ответ для ${user}`} value={text} onChange={handleChange}></textarea>
                 <div className={cn("container")}>
                     <button className={cn("button")} onClick={handlePostAnswer}>Отправить</button>
                     <button className={cn("button-cancel")} onClick={() => setReply("")}>Отмена</button>

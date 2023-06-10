@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
-import { useNavigate } from "react-router-dom";
 import useTranslate from "../../hooks/use-translate";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 function CommentsCard({renderItem, data, count}) {
-    const navigate = useNavigate();
     const cn = bem("CommentsCard");
     const {t} = useTranslate();
-
     return (
 
         <div className={cn()} >

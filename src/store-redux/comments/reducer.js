@@ -13,14 +13,18 @@ const initialState = {
   
       case "comments/load-success":
         return { ...state, count: action.payload.data.length, data: action.payload.data, waiting: false};
-      case "comments/load-error":
+      
+        case "comments/load-error":
         return { ...state, waiting: false}; //@todo текст ошибки сохранить?
 
       case "comments/post-start":
         return { ...state, waiting: true};
   
       case "comments/post-success":
-        return { ...state, data: action.payload.data, waiting: false};
+        return { ...state, data: state.data, waiting: false};
+
+      case "comments/post-reply":
+        return {...state, data: state.data, waiting: false};
   
       case "comments/post-error":
         return { ...state, waiting: false};
