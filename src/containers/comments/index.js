@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useMemo, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
@@ -14,6 +14,7 @@ import EnterToComment from "../../components/comments-card/enterToComment";
 function Comments() {
     const dispatch = useDispatch();
     const {id} = useParams();
+    const [selectedReplyId, setSelectedReplyId] = useState("");
 
     const selectStore = useSelector(state => ({
         exists: state.session.exists,
@@ -28,6 +29,7 @@ function Comments() {
     useInit(() => {
         dispatch(commentsActions.load(id))
     }, [id])
+
 
     const comments = useMemo(() => {
         if(selectRedux.data) {
@@ -48,6 +50,7 @@ function Comments() {
     }
         return null;
     }, [selectRedux.data])
+    
     const callbacks = {
         postComment: useCallback((text, parentId, type) => {
             dispatch(commentsActions.postComment(text, parentId, type, (parentId) => dispatch(commentsActions.load(parentId))));
@@ -64,12 +67,15 @@ function Comments() {
             exists={selectStore.exists}
             level={item.level}
             postAnswer={callbacks.postAnswer}
+            reply={item._id === selectedReplyId}
+            setSelectedReplyId={setSelectedReplyId}
           />
-        ), [comments]),
+        ), [comments, selectedReplyId]),
       };
+
     return (
         <>
-          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count}/>
+          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count} selectedReplyId={selectedReplyId}/>
         {selectStore.exists ?
             <NewComment postComment={callbacks.postComment}/> 
             :  

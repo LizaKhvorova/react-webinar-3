@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Reply({user, exists, id, postAnswer, setReply}) {
+function Reply({user, exists, id, postAnswer, setSelectedReplyId}) {
     const cn = bem("Reply");
     const navigate = useNavigate();
     const [text, setText] = useState("");
@@ -28,7 +28,7 @@ function Reply({user, exists, id, postAnswer, setReply}) {
                 <textarea className={cn("textarea")} placeholder={`Мой ответ для ${user}`} value={text} onChange={handleChange}></textarea>
                 <div className={cn("container")}>
                     <button className={cn("button")} onClick={handlePostAnswer}>Отправить</button>
-                    <button className={cn("button-cancel")} onClick={() => setReply("")}>Отмена</button>
+                    <button className={cn("button-cancel")} onClick={() => setSelectedReplyId("")}>Отмена</button>
                 </div>
             </>
             : 
@@ -38,7 +38,7 @@ function Reply({user, exists, id, postAnswer, setReply}) {
                     <div>
                         , чтобы иметь возможность комментировать.
                     </div>
-                    <div className={cn("cancel")} onClick={() => setReply("")}>Отмена</div>
+                    <div className={cn("cancel")} onClick={() => setSelectedReplyId("")}>Отмена</div>
                 </div> 
             </div>
             } 
@@ -51,13 +51,13 @@ function Reply({user, exists, id, postAnswer, setReply}) {
         exists: PropTypes.bool,
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         postAnswer: PropTypes.func,
-        setReply:PropTypes.func
+        setSelectedReplyId:PropTypes.func
     };
   
     Reply.defaultProps = {
         exists: false,
         postAnswer: () => {},
-        setReply: () => {}
+        setSelectedReplyId: () => {}
   }
 
 export default Reply;

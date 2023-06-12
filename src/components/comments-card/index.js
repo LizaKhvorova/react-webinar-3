@@ -3,6 +3,7 @@ import useTranslate from "../../hooks/use-translate";
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 function CommentsCard({renderItem, data, count}) {
+    
     const cn = bem("CommentsCard");
     const {t} = useTranslate();
     return (
@@ -28,7 +29,8 @@ CommentsCard.propTypes = {
   
   CommentsCard.defaultProps = {
     renderItem: (item) => {},
-    count: 0
+    count: 0,
+    data: []
   }
 
 export default CommentsCard;
