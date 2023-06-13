@@ -67,13 +67,14 @@ function Comments() {
             postAnswer={callbacks.postAnswer}
             reply={item._id === selectedReplyId}
             setSelectedReplyId={setSelectedReplyId}
+            id={selectRedux.id}
           />
         ), [comments, selectedReplyId]),
       };
 
     return (
         <>
-          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count} id={selectRedux.id}/>
+          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count}/>
         {selectStore.exists ?
             <NewComment postComment={callbacks.postComment}/> 
             :  

@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useRef, useEffect } from 'react';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import PropTypes from 'prop-types';
 import dateFormat from "../../../utils/date-format";
 import Reply from '../reply';
 
-function Comment({comment, exists, level, postAnswer, setSelectedReplyId, reply}) {
+function Comment({comment, exists, level, postAnswer, setSelectedReplyId, reply, id}) {
     const cn = bem("Comment");
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        if(scrollRef?.current) {
+            scrollRef?.current?.scrollIntoView({behavior: "smooth", block: "center"}); 
+        }
+    }, [id])
+    
     const handleSetReplyId = () => {
         setSelectedReplyId(comment._id);
     }  
     return(
-       <div className={cn()} style={{paddingLeft: `${Math.min(level, 7) * 30}px`}}>
+       <div className={cn()} style={{paddingLeft: `${Math.min(level, 7) * 30}px`}} ref={comment._id === id ? scrollRef : undefined}>
         <div className={cn("container")}>
             <div className={cn("username")}>{comment.authorName}</div>
             <div className={cn("date")}>{dateFormat(comment.dateCreate)}</div>
