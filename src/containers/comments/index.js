@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo, useState} from 'react';
+import {memo, useCallback, useMemo, useState, useRef, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useInit from "../../hooks/use-init";
@@ -20,16 +20,15 @@ function Comments() {
         exists: state.session.exists,
         user: state.session.user
     }));
-
     const selectRedux = useSelectorRedux(state => ({
         data: state.comments.data,
         count: state.comments.count,
+        id: state.comments.id
     }));
 
     useInit(() => {
         dispatch(commentsActions.load(id))
     }, [id])
-
 
     const comments = useMemo(() => {
         if(selectRedux.data) {
@@ -50,7 +49,6 @@ function Comments() {
     }
         return null;
     }, [selectRedux.data])
-    
     const callbacks = {
         postComment: useCallback((text, parentId, type) => {
             dispatch(commentsActions.postComment(text, parentId, type, (parentId) => dispatch(commentsActions.load(parentId))));
@@ -75,7 +73,7 @@ function Comments() {
 
     return (
         <>
-          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count} selectedReplyId={selectedReplyId}/>
+          <CommentsCard data={comments} renderItem={renders.item} count={selectRedux.count} id={selectRedux.id}/>
         {selectStore.exists ?
             <NewComment postComment={callbacks.postComment}/> 
             :  

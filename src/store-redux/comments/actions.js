@@ -25,7 +25,7 @@ export default {
         return async (dispatch, getState, services) => {
             try {
                 dispatch({type: 'comments/post-start'});
-                await services.api.request({
+                const res = await services.api.request({
                     url: "/api/v1/comments",
                     method: "POST",
                     body: JSON.stringify({
@@ -33,7 +33,7 @@ export default {
                         parent: {_id: parentId, _type: type}
                     })
                 })
-                dispatch({type: 'comments/post-success'})
+                dispatch({type: 'comments/post-success', payload: {id: res.data.result._id}})
                 await callback(parentId);
             }
             catch(e) {
@@ -53,7 +53,7 @@ export default {
                         parent: {_id: parentId, _type: type}
                     })
                 })
-                // dispatch({type: 'comments/post-reply'});
+                dispatch({type: 'comments/post-reply'});
                 await callback();
             }
             catch(e) {

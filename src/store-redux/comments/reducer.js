@@ -2,6 +2,7 @@
 const initialState = {
     count: 0,
     data: [],
+    id: "", 
     waiting: false // признак ожидания загрузки
   }
   
@@ -21,7 +22,7 @@ const initialState = {
         return { ...state, waiting: true};
   
       case "comments/post-success":
-        return { ...state, data: state.data, waiting: false};
+        return { ...state, data: state.data, id: action.payload.id, waiting: false};
 
       case "comments/post-reply":
         return {...state, data: state.data, waiting: false};

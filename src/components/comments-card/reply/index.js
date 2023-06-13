@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import {cn as bem} from '@bem-react/classname';
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -7,7 +7,9 @@ import './style.css';
 function Reply({user, exists, id, postAnswer, setSelectedReplyId}) {
     const cn = bem("Reply");
     const navigate = useNavigate();
+
     const [text, setText] = useState("");
+
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -17,7 +19,7 @@ function Reply({user, exists, id, postAnswer, setSelectedReplyId}) {
     const handlePostAnswer = () => {
         postAnswer(text, id, "comment");
         setText("");
-        setReply("")
+        setSelectedReplyId("");
     }
 
     return (
